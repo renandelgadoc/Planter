@@ -115,4 +115,8 @@ cython_debug/
 .DS_Store
 .idea/
 .ide
-
+src/temp/
+.local/
+.github/
+Data/
+Planter_config.json

@@ -18,7 +18,7 @@ import copy
 import time
 # %matplotlib inline
 import matplotlib.pyplot as plt
-plt.style.use('seaborn')
+plt.style.use('seaborn-v0_8')
 
 import seaborn as sns
 sns.set_style("whitegrid")
@@ -30,6 +30,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn import svm
 from sklearn import metrics
 from sklearn.tree import _tree
+from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
 from IPython.display import Image
 import pydotplus
@@ -42,6 +43,23 @@ from sklearn.metrics import *
 from src.functions.Range_to_TCAM_Top_Down import *
 from src.functions.json_encoder import *
 
+
+def save_tree(model, used_features, filename="tree.png"):
+    plt.figure(figsize=(18, 10))
+
+    tree.plot_tree(
+        model,
+        feature_names=used_features,
+        filled=True,
+        rounded=True,
+        class_names=True
+    )
+
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300)
+    plt.close()
+
+    print(f"Árvore salva em: {filename}")
 
 def get_lineage(tree, feature_names, file):
     left = tree.tree_.children_left
@@ -135,6 +153,8 @@ def find_feature_split(model, tree_index, num_features):
         second_letter = int(l % 24)
         feature_names += ["f" + chr(ord('A') + first_letter) + chr(ord('A') + second_letter)]
     threshold = model.tree_.threshold
+    print(feature_names)
+    print(model.tree_.feature)
     features = [feature_names[i] for i in model.tree_.feature]
     for i, fe in enumerate(features):
         for l in range(num_features):
@@ -320,6 +340,8 @@ def run_model(train_X, train_y, test_X, test_y, used_features):
 
     result = classification_report(test_y, sklearn_y_predict, digits=4)
     print('\n', result)
+    
+    save_tree(model, used_features)
 
     # =================== train model timer ===================
     Planter_config['timer log']['train model']['end'] = time.time()

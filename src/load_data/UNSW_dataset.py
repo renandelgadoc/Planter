@@ -143,7 +143,7 @@ def load_data(num_features, data_dir):
         X_train, X_test = X.iloc[train_index], X.iloc[test_index]
         y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-        used_features = ['sport', 'dsport', 'proto', 'service', 'sbytes']
+        used_features = ['sport', 'dsport', 'proto', 'dbytes', 'sbytes']
         used_features = used_features[:int(num_features)]
 
         X_train = X_train[used_features]

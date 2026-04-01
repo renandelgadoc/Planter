@@ -107,8 +107,13 @@ def create_parser(fname, config):
         parser.write(
             "control SwitchComputeChecksum(inout header_t hdr,\n"
             "                        inout metadata_t meta) {\n"
-            "    apply {}\n"
-            "}\n")
+        )
+        # Use shared common checksum generation logic from common_p4
+        try:
+            common_compute_checksum(parser, config)
+        except Exception as e:
+            parser.write("    apply {}\n")
+        parser.write("}\n")
 
 
 

@@ -17,7 +17,7 @@ from pandas import plotting
 import copy
 # %matplotlib inline
 import matplotlib.pyplot as plt
-plt.style.use('seaborn')
+plt.style.use('seaborn-v0_8')
 
 import seaborn as sns
 sns.set_style("whitegrid")
@@ -40,7 +40,6 @@ import math
 from sklearn.metrics import *
 from src.functions.Range_to_TCAM_Top_Down import *
 from src.functions.json_encoder import *
-
 
 def get_lineage(tree, feature_names, file):
     left = tree.tree_.children_left
