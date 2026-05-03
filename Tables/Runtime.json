@@ -10,9 +10,93 @@
             },
             "action_name": "SwitchIngress.extract_feature0",
             "action_params": {
-                "tree": 0
+                "tree": 4
             },
             "priority": 0
+        },
+        {
+            "table": "SwitchIngress.lookup_feature0",
+            "match": {
+                "hdr.Planter.feature0": [
+                    63,
+                    255
+                ]
+            },
+            "action_name": "SwitchIngress.extract_feature0",
+            "action_params": {
+                "tree": 4
+            },
+            "priority": 1
+        },
+        {
+            "table": "SwitchIngress.lookup_feature0",
+            "match": {
+                "hdr.Planter.feature0": [
+                    62,
+                    254
+                ]
+            },
+            "action_name": "SwitchIngress.extract_feature0",
+            "action_params": {
+                "tree": 3
+            },
+            "priority": 2
+        },
+        {
+            "table": "SwitchIngress.lookup_feature0",
+            "match": {
+                "hdr.Planter.feature0": [
+                    60,
+                    252
+                ]
+            },
+            "action_name": "SwitchIngress.extract_feature0",
+            "action_params": {
+                "tree": 2
+            },
+            "priority": 3
+        },
+        {
+            "table": "SwitchIngress.lookup_feature0",
+            "match": {
+                "hdr.Planter.feature0": [
+                    56,
+                    248
+                ]
+            },
+            "action_name": "SwitchIngress.extract_feature0",
+            "action_params": {
+                "tree": 1
+            },
+            "priority": 4
+        },
+        {
+            "table": "SwitchIngress.lookup_feature0",
+            "match": {
+                "hdr.Planter.feature0": [
+                    52,
+                    252
+                ]
+            },
+            "action_name": "SwitchIngress.extract_feature0",
+            "action_params": {
+                "tree": 1
+            },
+            "priority": 5
+        },
+        {
+            "table": "SwitchIngress.lookup_feature0",
+            "match": {
+                "hdr.Planter.feature0": [
+                    50,
+                    254
+                ]
+            },
+            "action_name": "SwitchIngress.extract_feature0",
+            "action_params": {
+                "tree": 1
+            },
+            "priority": 6
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -26,7 +110,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 1
+            "priority": 7
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -40,7 +124,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 2
+            "priority": 8
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -54,7 +138,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 3
+            "priority": 9
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -68,7 +152,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 4
+            "priority": 10
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -82,7 +166,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 5
+            "priority": 11
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -96,7 +180,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 6
+            "priority": 12
         },
         {
             "table": "SwitchIngress.lookup_feature0",
@@ -110,7 +194,7 @@
             "action_params": {
                 "tree": 0
             },
-            "priority": 7
+            "priority": 13
         },
         {
             "table": "SwitchIngress.lookup_feature1",
@@ -122,7 +206,7 @@
             },
             "action_name": "SwitchIngress.extract_feature1",
             "action_params": {
-                "tree": 1
+                "tree": 0
             },
             "priority": 0
         },
@@ -270,8 +354,8 @@
             "table": "SwitchIngress.lookup_feature2",
             "match": {
                 "hdr.Planter.feature2": [
-                    49,
-                    255
+                    48,
+                    240
                 ]
             },
             "action_name": "SwitchIngress.extract_feature2",
@@ -421,152 +505,11 @@
             "priority": 14
         },
         {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    24,
-                    56
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 2
-            },
-            "priority": 0
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    20,
-                    60
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 2
-            },
-            "priority": 1
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    18,
-                    62
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 2
-            },
-            "priority": 2
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    17,
-                    63
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 2
-            },
-            "priority": 3
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    16,
-                    48
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 1
-            },
-            "priority": 4
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    8,
-                    56
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 0
-            },
-            "priority": 5
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    4,
-                    60
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 0
-            },
-            "priority": 6
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    2,
-                    62
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 0
-            },
-            "priority": 7
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    1,
-                    63
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 0
-            },
-            "priority": 8
-        },
-        {
-            "table": "SwitchIngress.lookup_feature3",
-            "match": {
-                "hdr.Planter.feature3": [
-                    0,
-                    63
-                ]
-            },
-            "action_name": "SwitchIngress.extract_feature3",
-            "action_params": {
-                "tree": 0
-            },
-            "priority": 9
-        },
-        {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 0,
-                "meta.code_f3[2:0]": 0
+                "meta.code_f0[3:0]": 0,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 0
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
@@ -576,10 +519,9 @@
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 0,
-                "meta.code_f3[2:0]": 1
+                "meta.code_f0[3:0]": 1,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 0
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
@@ -589,10 +531,9 @@
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 0,
-                "meta.code_f3[2:0]": 2
+                "meta.code_f0[3:0]": 2,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 0
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
@@ -602,10 +543,9 @@
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 1,
-                "meta.code_f2[2:0]": 0,
-                "meta.code_f3[2:0]": 0
+                "meta.code_f0[3:0]": 3,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 0
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
@@ -615,10 +555,9 @@
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 1,
-                "meta.code_f2[2:0]": 0,
-                "meta.code_f3[2:0]": 1
+                "meta.code_f0[3:0]": 4,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 0
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
@@ -628,105 +567,85 @@
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 1,
-                "meta.code_f2[2:0]": 0,
-                "meta.code_f3[2:0]": 2
+                "meta.code_f0[3:0]": 4,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 2
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 0
+                "label": 1
             }
         },
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 3,
-                "meta.code_f3[2:0]": 0
+                "meta.code_f0[3:0]": 0,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 1
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 2
+                "label": 1
             }
         },
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 1,
-                "meta.code_f2[2:0]": 3,
-                "meta.code_f3[2:0]": 0
+                "meta.code_f0[3:0]": 1,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 1
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 2
+                "label": 1
             }
         },
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 2,
-                "meta.code_f3[2:0]": 2
+                "meta.code_f0[3:0]": 2,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 1
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 2
+                "label": 1
             }
         },
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 3,
-                "meta.code_f3[2:0]": 2
+                "meta.code_f0[3:0]": 3,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 1
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 2
+                "label": 1
             }
         },
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 1,
-                "meta.code_f2[2:0]": 2,
-                "meta.code_f3[2:0]": 2
+                "meta.code_f0[3:0]": 4,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 1
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 2
+                "label": 1
             }
         },
         {
             "table": "SwitchIngress.decision",
             "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 1,
-                "meta.code_f2[2:0]": 3,
-                "meta.code_f3[2:0]": 2
+                "meta.code_f0[3:0]": 2,
+                "meta.code_f1[0:0]": 0,
+                "meta.code_f2[2:0]": 3
             },
             "action_name": "SwitchIngress.read_lable",
             "action_params": {
-                "label": 2
-            }
-        },
-        {
-            "table": "SwitchIngress.decision",
-            "match": {
-                "meta.code_f0[0:0]": 0,
-                "meta.code_f1[1:0]": 0,
-                "meta.code_f2[2:0]": 1,
-                "meta.code_f3[2:0]": 2
-            },
-            "action_name": "SwitchIngress.read_lable",
-            "action_params": {
-                "label": 2
+                "label": 1
             }
         }
     ]

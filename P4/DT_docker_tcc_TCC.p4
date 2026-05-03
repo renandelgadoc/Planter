@@ -36,6 +36,22 @@
  * +----------------+----------------+----------------+---------------+
  * |                              feature2                            |
  * +----------------+----------------+----------------+---------------+
+ * |                              feature3                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature4                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature5                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature6                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature7                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature8                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature9                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature10                            |
+ * +----------------+----------------+----------------+---------------+
  * |                              Result                              |
  * +----------------+----------------+----------------+---------------+
  *
@@ -95,6 +111,14 @@ header Planter_h {
     bit<32> feature0;
     bit<32> feature1;
     bit<32> feature2;
+    bit<32> feature3;
+    bit<32> feature4;
+    bit<32> feature5;
+    bit<32> feature6;
+    bit<32> feature7;
+    bit<32> feature8;
+    bit<32> feature9;
+    bit<32> feature10;
     bit<32> result;
 }
 
@@ -105,15 +129,31 @@ struct header_t {
 }
 
 struct metadata_t {
-    bit<3> code_f0;
-    bit<4> code_f1;
-    bit<4> code_f2;
+    bit<1> code_f0;
+    bit<2> code_f1;
+    bit<3> code_f2;
+    bit<2> code_f3;
+    bit<1> code_f4;
+    bit<3> code_f5;
+    bit<1> code_f6;
+    bit<1> code_f7;
+    bit<2> code_f8;
+    bit<3> code_f9;
+    bit<1> code_f10;
     bit<7> sum_prob;
     bit<32>  DstAddr;
     bit<1> is_my_mac;
     bit<32> feature0;
     bit<32> feature1;
     bit<32> feature2;
+    bit<32> feature3;
+    bit<32> feature4;
+    bit<32> feature5;
+    bit<32> feature6;
+    bit<32> feature7;
+    bit<32> feature8;
+    bit<32> feature9;
+    bit<32> feature10;
     bit<32> result;
     bit<8> flag ;
 }
@@ -160,6 +200,14 @@ parser SwitchParser(
         meta.feature0 = hdr.Planter.feature0;
         meta.feature1 = hdr.Planter.feature1;
         meta.feature2 = hdr.Planter.feature2;
+        meta.feature3 = hdr.Planter.feature3;
+        meta.feature4 = hdr.Planter.feature4;
+        meta.feature5 = hdr.Planter.feature5;
+        meta.feature6 = hdr.Planter.feature6;
+        meta.feature7 = hdr.Planter.feature7;
+        meta.feature8 = hdr.Planter.feature8;
+        meta.feature9 = hdr.Planter.feature9;
+        meta.feature10 = hdr.Planter.feature10;
         meta.flag = 1;
         transition accept;
     }
@@ -264,15 +312,47 @@ control SwitchIngress(
         default_action = drop();
     }
 
-    action extract_feature0(out bit<3> meta_code, bit<3> tree){
+    action extract_feature0(out bit<1> meta_code, bit<1> tree){
         meta_code = tree;
     }
 
-    action extract_feature1(out bit<4> meta_code, bit<4> tree){
+    action extract_feature1(out bit<2> meta_code, bit<2> tree){
         meta_code = tree;
     }
 
-    action extract_feature2(out bit<4> meta_code, bit<4> tree){
+    action extract_feature2(out bit<3> meta_code, bit<3> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature3(out bit<2> meta_code, bit<2> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature4(out bit<1> meta_code, bit<1> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature5(out bit<3> meta_code, bit<3> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature6(out bit<1> meta_code, bit<1> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature7(out bit<1> meta_code, bit<1> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature8(out bit<2> meta_code, bit<2> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature9(out bit<3> meta_code, bit<3> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature10(out bit<1> meta_code, bit<1> tree){
         meta_code = tree;
     }
 
@@ -287,7 +367,7 @@ control SwitchIngress(
             extract_feature0(meta.code_f0);
             NoAction;
             }
-        size = 30;
+        size = 17;
         default_action = NoAction;
     }
 
@@ -298,7 +378,7 @@ control SwitchIngress(
             extract_feature1(meta.code_f1);
             NoAction;
             }
-        size = 47;
+        size = 10;
         default_action = NoAction;
     }
 
@@ -309,7 +389,95 @@ control SwitchIngress(
             extract_feature2(meta.code_f2);
             NoAction;
             }
-        size = 14;
+        size = 17;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature3 {
+        key = { hdr.Planter.feature3:ternary; }
+        actions = {
+            extract_feature3(meta.code_f3);
+            NoAction;
+            }
+        size = 8;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature4 {
+        key = { hdr.Planter.feature4:ternary; }
+        actions = {
+            extract_feature4(meta.code_f4);
+            NoAction;
+            }
+        size = 17;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature5 {
+        key = { hdr.Planter.feature5:ternary; }
+        actions = {
+            extract_feature5(meta.code_f5);
+            NoAction;
+            }
+        size = 17;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature6 {
+        key = { hdr.Planter.feature6:ternary; }
+        actions = {
+            extract_feature6(meta.code_f6);
+            NoAction;
+            }
+        size = 9;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature7 {
+        key = { hdr.Planter.feature7:ternary; }
+        actions = {
+            extract_feature7(meta.code_f7);
+            NoAction;
+            }
+        size = 3;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature8 {
+        key = { hdr.Planter.feature8:ternary; }
+        actions = {
+            extract_feature8(meta.code_f8);
+            NoAction;
+            }
+        size = 12;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature9 {
+        key = { hdr.Planter.feature9:ternary; }
+        actions = {
+            extract_feature9(meta.code_f9);
+            NoAction;
+            }
+        size = 17;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature10 {
+        key = { hdr.Planter.feature10:ternary; }
+        actions = {
+            extract_feature10(meta.code_f10);
+            NoAction;
+            }
+        size = 9;
         default_action = NoAction;
     }
 
@@ -318,15 +486,23 @@ control SwitchIngress(
     }
 
     table decision {
-        key = { meta.code_f0[2:0]:exact;
-                meta.code_f1[3:0]:exact;
-                meta.code_f2[3:0]:exact;
+        key = { meta.code_f0[0:0]:exact;
+                meta.code_f1[1:0]:exact;
+                meta.code_f2[2:0]:exact;
+                meta.code_f3[1:0]:exact;
+                meta.code_f4[0:0]:exact;
+                meta.code_f5[2:0]:exact;
+                meta.code_f6[0:0]:exact;
+                meta.code_f7[0:0]:exact;
+                meta.code_f8[1:0]:exact;
+                meta.code_f9[2:0]:exact;
+                meta.code_f10[0:0]:exact;
                 }
         actions={
             read_lable;
             write_default_class;
         }
-        size = 23;
+        size = 90;
         default_action = write_default_class;
     }
 
@@ -334,6 +510,14 @@ control SwitchIngress(
         lookup_feature0.apply();
         lookup_feature1.apply();
         lookup_feature2.apply();
+        lookup_feature3.apply();
+        lookup_feature4.apply();
+        lookup_feature5.apply();
+        lookup_feature6.apply();
+        lookup_feature7.apply();
+        lookup_feature8.apply();
+        lookup_feature9.apply();
+        lookup_feature10.apply();
         decision.apply();
         meta.is_my_mac = 0;
         my_mac.apply();

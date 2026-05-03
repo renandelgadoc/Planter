@@ -222,7 +222,7 @@ def Planter(iteration = 0):
     if not args.testing_mode:
         # =================== set testing mode in config ===================
         question = 'Use the testing mode or not?'
-        default = 'y'
+        default = 'n'
         Planter_config = take_CLI_input(Planter_config, 'data config', 'testing mode', question, default,
                                         args.manually_config)
         test_mode = Planter_config['data config']['testing mode']
@@ -250,7 +250,7 @@ def Planter(iteration = 0):
     Planter_config = reload_config('src/configs/Planter_config.json')
     # =================== set testing table or not in config ===================
     question = 'Test the table or not?'
-    default = 'y'
+    default = 'n'
     Planter_config = take_CLI_input(Planter_config, 'model config', 'test table', question, default, args.manually_config)
     if Planter_config['model config']['test table'] == 'y':
 
@@ -284,7 +284,7 @@ def Planter(iteration = 0):
 
     # ====================== set use case in config ======================
     question = 'Which is the use case?'
-    default = 'docker_tcc'
+    default = 'performance'
     Planter_config = take_CLI_input(Planter_config, 'target config', 'use case', question, default,
                                     args.manually_config, check_dir_existance=True, check_available_options=True,
                                     option_address='/src/use_cases/')
@@ -318,7 +318,7 @@ def Planter(iteration = 0):
 
     # # ====================== set target testing mode in config ======================
     question = 'Which type of mode do you want to choose?'
-    default = 'compile'
+    default = 'software'
     Planter_config = take_CLI_input(Planter_config, 'target config', 'type', question, default,
                                     args.manually_config, check_dir_existance=True, check_available_options=True,
                                     option_address='/src/targets/'+Planter_config['target config']['device'])
@@ -327,29 +327,29 @@ def Planter(iteration = 0):
     print('= Dump the targets info to src/configs/Planter_config.json')
 
     # =================== include model compile load and test module ===================
-    # if_using_subprocess = False
-    # test_model_path = Planter_config['directory config']['work']+'/src/targets/'+Planter_config['target config']['device'] +'/'+Planter_config['target config']['type']
-    # print('= Add the following path: '+test_model_path)
-    # sys.path.append(test_model_path)
-    # run_model_main = importlib.util.spec_from_file_location("*", test_model_path+"/run_model.py")
-    # run_model_functions = importlib.util.module_from_spec(run_model_main)
-    # run_model_main.loader.exec_module(run_model_functions)
-    # processes, if_using_subprocess = run_model_functions.main(if_using_subprocess)
+    if_using_subprocess = False
+    test_model_path = Planter_config['directory config']['work']+'/src/targets/'+Planter_config['target config']['device'] +'/'+Planter_config['target config']['type']
+    print('= Add the following path: '+test_model_path)
+    sys.path.append(test_model_path)
+    run_model_main = importlib.util.spec_from_file_location("*", test_model_path+"/run_model.py")
+    run_model_functions = importlib.util.module_from_spec(run_model_main)
+    run_model_main.loader.exec_module(run_model_functions)
+    processes, if_using_subprocess = run_model_functions.main(if_using_subprocess)
 
-    # test_model_main = importlib.util.spec_from_file_location("*", test_model_path+"/test_model.py")
-    # test_model_functions = importlib.util.module_from_spec(test_model_main)
-    # test_model_main.loader.exec_module(test_model_functions)
-    # processes, if_using_subprocess = test_model_functions.main(sklearn_test_y, test_X, test_y, processes, if_using_subprocess)
+    test_model_main = importlib.util.spec_from_file_location("*", test_model_path+"/test_model.py")
+    test_model_functions = importlib.util.module_from_spec(test_model_main)
+    test_model_main.loader.exec_module(test_model_functions)
+    processes, if_using_subprocess = test_model_functions.main(sklearn_test_y, test_X, test_y, processes, if_using_subprocess)
 
-    # if if_using_subprocess:
-    #     print('Join all subprocess together ...')
-    #     try:
-    #         for p in processes:
-    #             p.join()
-    #     except Exception as e:
-    #         print(str(e))
+    if if_using_subprocess:
+        print('Join all subprocess together ...')
+        try:
+            for p in processes:
+                p.join()
+        except Exception as e:
+            print(str(e))
 
-    # print_timer()
+    print_timer()
 
 
 

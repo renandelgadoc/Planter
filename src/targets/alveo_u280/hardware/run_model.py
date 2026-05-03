@@ -38,11 +38,10 @@ def file_names(Planter_config):
 
 def add_make_run_model(fname, config):
     work_root, model_test_root, file_name, test_file_name = file_names(config)
-    password = config['test config']['sudo password']
     test_command = 'python3 '+work_root+'/src/test/' + test_file_name + '.py'
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
-        command.write("echo '" + password + "' | sudo -S " + test_command + "\n")
+        command.write("sudo -S " + test_command + "\n")
     os.chmod(fname, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
 
 def run_command(command, root):
@@ -118,8 +117,6 @@ def main(if_using_subprocess):
     Planter_config = json.load(open(config_file, 'r'))
 
     Planter_config['test config']['port'] = input("- Send packets to which port? (default = 'mel0'): ") or 'mel0'
-    Planter_config['test config']['sudo password'] = getpass.getpass(
-        "- Please input your password for 'sudo' command: ") or '12345'
     Planter_config['test config']['os codename'] = input("- Please enter OS codename (default = 'focal'): ") or 'focal'
     Planter_config['test config']['fpga pcie dev'] = input("- Please enter address of PCIe device that application stack should bind again (default = '0000:c1:00'): ") or '0000:c1:00'
 

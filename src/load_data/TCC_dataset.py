@@ -14,8 +14,9 @@ def load_data(num_features, data_dir):
         used_features = [line.strip() for line in f]
 
     # used_features = used_features[:num_features]
-    used_features = ['sport', 'dsport', 'proto']
+    # used_features = used_features[:num_features]
     
+    used_features=["dsport","sttl","smeansz","ct_dst_src_ltm","sport","dmeansz","dttl","trans_depth","proto","Spkts","dwin"][:num_features]
     print(used_features)
 
     # ---- carregar X como DataFrame ----
@@ -30,10 +31,10 @@ def load_data(num_features, data_dir):
     y_train = pd.read_csv(y_train_path, skiprows=1, header=None).iloc[:, 0].astype(int).to_numpy()
     y_test  = pd.read_csv(y_test_path,  skiprows=1, header=None).iloc[:, 0].astype(int).to_numpy()
 
-    print(y_train[:10])
-    print(y_test[:10])
-    print(X_train[:10])
-    print(X_test[:10])
+    # print(y_train[:10])
+    # print(y_test[:10])
+    # print(X_train[:10])
+    # print(X_test[:10])
     
     return X_train, y_train, X_test, y_test, used_features
 

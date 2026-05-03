@@ -19,7 +19,7 @@ from datetime import datetime
 import grpc
 from p4.v1 import p4runtime_pb2
 from p4.v1 import p4runtime_pb2_grpc
-from p4.tmp import p4config_pb2
+from p4.v1 import p4runtime_pb2 as p4config_pb2
 
 MSG_LOG_MAX_LEN = 1024
 

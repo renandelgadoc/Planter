@@ -38,12 +38,11 @@ def file_names(Planter_config):
 
 def add_make_run_model(fname, config):
     work_root, model_test_root, file_name, test_file_name = file_names(config)
-    password = config['test config']['sudo password']
     # test_command = 'h1 python3 '+work_root+'/src/test/' + test_file_name +'.py'
     
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
-        command.write("echo '" + password + "' | sudo su\n")
+        command.write("sudo su\n")
         command.write("cd /root/t4p4s/examples\n")
         command.write("cp " + work_root+"/P4/"+file_name+".p4 "+"myprog.p4\n")
         command.write("echo 'myprog' > /root/t4p4s-switch\n")
@@ -68,9 +67,6 @@ def main(if_using_subprocess):
     Planter_config = json.load(open(config_file, 'r'))
 
     Planter_config['test config']['port'] = input("- Send packets to which port? (default = 'eth0'): ") or 'eth0'
-    Planter_config['test config']['sudo password'] = getpass.getpass(
-        "- Please input your password for 'sudo' command: ") or '12345'
-
     json.dump(Planter_config, open('src/configs/Planter_config.json', 'w'), indent=4, cls=NpEncoder)
 
     ##################################################

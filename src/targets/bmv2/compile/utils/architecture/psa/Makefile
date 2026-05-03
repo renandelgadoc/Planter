@@ -4,7 +4,7 @@ LOG_DIR = logs
 
 P4C = p4c-bm2-psa
 P4C_ARGS += --p4runtime-files $(BUILD_DIR)/$(basename $@).p4.p4info.txt
-
+VENV_PYTHON_INTERPRETER = $(VIRTUAL_ENV)/bin/python3
 RUN_SCRIPT = ../../utils/run_exercise.py
 
 ifndef TOPO
@@ -32,7 +32,7 @@ endif
 all: run
 
 run: build
-	sudo python3 $(RUN_SCRIPT) -t $(TOPO) $(run_args)
+	$(VENV_PYTHON_INTERPRETER) $(RUN_SCRIPT) -t $(TOPO) $(run_args)
 
 stop:
 	sudo mn -c

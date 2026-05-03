@@ -101,16 +101,14 @@ def add_makefile_sim(fname, config):
                 "\t$(P4C_VITISNET) $< -o $@\n")
 
 def add_test_model(fname, test_file, config):
-    password = config['test config']['sudo password']
     work_root, model_test_root, file_name, test_file_name, packets_in_test_file_name = file_names(config)
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
-        command.write("echo '"+password+"' | sudo -S python3 " + test_file + '\n')
+        command.write("sudo -S python3 " + test_file + '\n')
     os.chmod(fname, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO) # check what this does 
 
 def add_make_run_model(fname, config):
     work_root, model_test_root, file_name, test_file_name, packets_in_test_file_name = file_names(config)
-    password = config['test config']['sudo password']
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
         command.write("make clean\n")
@@ -120,7 +118,7 @@ def add_make_run_model(fname, config):
         #xilinxd_license_file = input("- Please enter XILINXD_LICENSE_FILE (default = '2100@cegls1.physics.ox.ac.uk'): ") or '2100@cegls1.physics.ox.ac.uk'
         #command.write("export XILINXD_LICENSE_FILE=" + xilinxd_license_file + "\n")
         #command.write("source /tools/Xilinx/Vivado/2022.1/settings64.sh\n")
-        #command.write("echo '" + password + "' | sudo -S sed -i s/vitis_net_p4_v1_0/vitis_net_p4_v1_1/g /tools/Xilinx/Vivado/2022.1/bin/unwrapped/lnx64.o/p4c-vitisnet.tcl\n")
+        #command.write("sudo -S sed -i s/vitis_net_p4_v1_0/vitis_net_p4_v1_1/g /tools/Xilinx/Vivado/2022.1/bin/unwrapped/lnx64.o/p4c-vitisnet.tcl\n")
         #command.write("source /home/liam/.bashrc\n")
         #command.write("printenv\n")
         command.write("make sim test-case0\n")
@@ -136,8 +134,6 @@ def main(if_using_subprocess):
     Planter_config = json.load(open(config_file, 'r'))
 
     Planter_config['test config']['port'] = input("- Send packets to which port? (default = 'eth0'): ") or 'eth0'
-    Planter_config['test config']['sudo password'] = getpass.getpass(
-        "- Please input your password for 'sudo' command: ") or '12345'
 
     json.dump(Planter_config, open('src/configs/Planter_config.json', 'w'), indent=4, cls=NpEncoder)
 

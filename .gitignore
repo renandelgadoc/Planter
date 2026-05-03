@@ -118,5 +118,11 @@ cython_debug/
 src/temp/
 .local/
 .github/
+make_run_model.sh
+**/*.pcap
 Data/
-Planter_config.json
+**/tree.png
+**/load_table.py
+**/test_switch*.py
+**/Planter_config.json
+**/*runtime.json

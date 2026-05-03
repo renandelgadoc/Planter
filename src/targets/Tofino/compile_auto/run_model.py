@@ -42,7 +42,6 @@ def file_names(Planter_config):
 
 def add_compile_model(fname, config):
     work_root, sde_root, tools_root, p4_file, file_name = file_names(config)
-    password = config['test config']['sudo password']
     
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n"
@@ -57,8 +56,6 @@ def add_compile_model(fname, config):
 
 def add_start_switch_model(fname, config):
     work_root, sde_root, tools_root, p4_file, file_name = file_names(config)
-    
-    password = config['test config']['sudo password']
     
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n"
@@ -191,9 +188,6 @@ def main(if_using_subprocess):
     
 
     # ====================== set machine learning model in config ======================
-    if 'sudo password' not in Planter_config['test config'].keys():
-        Planter_config['test config']['sudo password'] = getpass.getpass( "- Please input your password for 'sudo' command: ") or '12345'
-
     # dump the config file
     dump_config(Planter_config, 'src/configs/Planter_config.json')
 

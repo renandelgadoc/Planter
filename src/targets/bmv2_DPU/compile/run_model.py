@@ -40,12 +40,11 @@ def file_names(Planter_config):
 
 def add_run_switch_model(fname, config):
     work_root, model_test_root, file_name, test_file_name = file_names(config)
-    password = config['test config']['sudo password']
     test_command = 'h1 python3 '+work_root+'/src/test/' + test_file_name +'.py'
     
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
-        command.write("echo '" + password + "' | sudo -S make clean\n")
+        command.write("sudo -S make clean\n")
         command.write("rm " + model_test_root + "/*.p4\n")
         command.write("cp "+work_root+"/P4/"+file_name+".p4 " + model_test_root + "/"+file_name+".p4\n")
         # command.write("echo '" + test_command + "' | sudo -S make run\n")
@@ -55,12 +54,11 @@ def add_run_switch_model(fname, config):
 
 def add_load_table(fname, config):
     work_root, model_test_root, file_name, test_file_name = file_names(config)
-    password = config['test config']['sudo password']
     
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
-        # command.write("echo '" + password + "' | sudo -S make clean\n")
-        # command.write("echo '" + password + "' | sudo -S simple_switch_CLI <"+work_root+"/Tables/s1-commands.txt " + model_test_root + "/"+file_name+".json" + ' > '+work_root+'/src/temp/simple_switch_CLI_load_table.txt\n')
+        # command.write("sudo -S make clean\n")
+        # command.write("sudo -S simple_switch_CLI <"+work_root+"/Tables/s1-commands.txt " + model_test_root + "/"+file_name+".json" + ' > '+work_root+'/src/temp/simple_switch_CLI_load_table.txt\n')
         command.write("simple_switch_CLI <" + work_root + "/Tables/s1-commands.txt ")# + ' > ' + work_root + '/src/temp/simple_switch_CLI_load_table.txt\n')
     os.chmod(fname, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
 
@@ -80,8 +78,6 @@ def main(if_using_subprocess):
     Planter_config = json.load(open(config_file, 'r'))
 
     Planter_config['test config']['port'] = input("- Send packets to which port? (default = 'eth0'): ") or 'eth0'
-    Planter_config['test config']['sudo password'] = getpass.getpass(
-        "- Please input your password for 'sudo' command: ") or '12345'
 
     json.dump(Planter_config, open('src/configs/Planter_config.json', 'w'), indent=4, cls=NpEncoder)
 

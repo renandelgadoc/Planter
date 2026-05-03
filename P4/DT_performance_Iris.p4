@@ -36,8 +36,6 @@
  * +----------------+----------------+----------------+---------------+
  * |                              feature2                            |
  * +----------------+----------------+----------------+---------------+
- * |                              feature3                            |
- * +----------------+----------------+----------------+---------------+
  * |                              Result                              |
  * +----------------+----------------+----------------+---------------+
  *
@@ -80,7 +78,6 @@ header Planter_h{
     bit<32> feature0;
     bit<32> feature1;
     bit<32> feature2;
-    bit<32> feature3;
     bit<32> result;
 }
 
@@ -90,16 +87,14 @@ struct header_t {
 }
 
 struct metadata_t {
-    bit<1> code_f0;
-    bit<2> code_f1;
+    bit<4> code_f0;
+    bit<1> code_f1;
     bit<3> code_f2;
-    bit<3> code_f3;
     bit<7> sum_prob;
     bit<32>  DstAddr;
     bit<32> feature0;
     bit<32> feature1;
     bit<32> feature2;
-    bit<32> feature3;
     bit<32> result;
     bit<8> flag ;
 }
@@ -140,7 +135,6 @@ parser SwitchParser(
         meta.feature0 = hdr.Planter.feature0;
         meta.feature1 = hdr.Planter.feature1;
         meta.feature2 = hdr.Planter.feature2;
-        meta.feature3 = hdr.Planter.feature3;
         meta.flag = 1 ;
         transition accept;
     }
@@ -191,11 +185,11 @@ control SwitchIngress(
         mark_to_drop(ig_intr_md);
     }
 
-    action extract_feature0(out bit<1> meta_code, bit<1> tree){
+    action extract_feature0(out bit<4> meta_code, bit<4> tree){
         meta_code = tree;
     }
 
-    action extract_feature1(out bit<2> meta_code, bit<2> tree){
+    action extract_feature1(out bit<1> meta_code, bit<1> tree){
         meta_code = tree;
     }
 
@@ -203,69 +197,64 @@ control SwitchIngress(
         meta_code = tree;
     }
 
-    action extract_feature3(out bit<3> meta_code, bit<3> tree){
-        meta_code = tree;
-    }
-
     action read_lable(bit<32> label){
-        meta.result = label;
+        hdr.Planter.result = label;
     }
 
+    @pragma stage 0
     table lookup_feature0 {
-        key = { meta.feature0:exact; }
+        key = { hdr.Planter.feature0:ternary; }
         actions = {
             extract_feature0(meta.code_f0);
             NoAction;
             }
-        size = 80;
+        size = 14;
         default_action = NoAction;
     }
 
+    @pragma stage 0
     table lookup_feature1 {
-        key = { meta.feature1:exact; }
+        key = { hdr.Planter.feature1:ternary; }
         actions = {
             extract_feature1(meta.code_f1);
             NoAction;
             }
-        size = 45;
+        size = 7;
         default_action = NoAction;
     }
 
+    @pragma stage 0
     table lookup_feature2 {
-        key = { meta.feature2:exact; }
+        key = { hdr.Planter.feature2:ternary; }
         actions = {
             extract_feature2(meta.code_f2);
             NoAction;
             }
-        size = 70;
+        size = 15;
         default_action = NoAction;
     }
 
-    table lookup_feature3 {
-        key = { meta.feature3:exact; }
-        actions = {
-            extract_feature3(meta.code_f3);
-            NoAction;
-            }
-        size = 26;
-        default_action = NoAction;
+    action write_default_class() {
+        hdr.Planter.result = 2;
     }
 
     table decision {
-        key = { meta.code_f0[0:0]:exact;
-                meta.code_f1[1:0]:exact;
+        key = { meta.code_f0[3:0]:exact;
+                meta.code_f1[0:0]:exact;
                 meta.code_f2[2:0]:exact;
-                meta.code_f3[2:0]:exact;
                 }
-        actions={read_lable;}
-        size = 24;
+        actions={
+            read_lable;
+            write_default_class;
+        }
+        size = 12;
+        default_action = write_default_class;
     }
 
     apply{
         lookup_feature0.apply();
         lookup_feature1.apply();
         lookup_feature2.apply();
-        lookup_feature3.apply();
         decision.apply();
         send(ig_intr_md.ingress_port);
     }
