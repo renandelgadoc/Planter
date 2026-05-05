@@ -222,7 +222,7 @@ def Planter(iteration = 0):
     if not args.testing_mode:
         # =================== set testing mode in config ===================
         question = 'Use the testing mode or not?'
-        default = 'n'
+        default = 'y'
         Planter_config = take_CLI_input(Planter_config, 'data config', 'testing mode', question, default,
                                         args.manually_config)
         test_mode = Planter_config['data config']['testing mode']

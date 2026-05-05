@@ -39,13 +39,14 @@ def file_names(Planter_config):
 def add_make_run_model(fname, config):
     work_root, model_test_root, file_name, test_file_name = file_names(config)
     test_command = 'h1 ' + os.environ['VIRTUAL_ENV'] + '/bin/python3 ' + work_root + '/src/test/' + test_file_name + '.py'
-    
+
     with open(fname, 'w') as command:
         command.write("#!/bin/bash\n")
-        command.write("sudo -S make clean\n")
-        command.write("rm " + model_test_root + "/*.p4\n")
-        command.write("cp "+work_root+"/P4/"+file_name+".p4 " + model_test_root + "/"+file_name+".p4\n")
-        command.write("echo '" + test_command + "' | sudo -S make run\n")
+        command.write(f"export VIRTUAL_ENV='{os.environ.get('VIRTUAL_ENV', '')}'\n")
+        command.write("sudo -S -E make clean\n")
+        command.write(f"rm {model_test_root}/*.p4\n")
+        command.write(f"cp {work_root}/P4/{file_name}.p4 {model_test_root}/{file_name}.p4\n")
+        command.write(f"echo '{test_command}' | sudo -S -E make run\n")
     os.chmod(fname, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
 
 

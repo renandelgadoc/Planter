@@ -5,15 +5,79 @@
     },
     "model config": {
         "model": "DT",
-        "type": "EB"
+        "type": "EB",
+        "number of depth": 4,
+        "max number of leaf nodes": 1000,
+        "number of classes": 2,
+        "test table": "n"
     },
     "data config": {
-        "dataset": "UNSW_sample",
-        "number of features": 5
+        "dataset": "TCC",
+        "number of features": 8,
+        "testing mode": "y"
     },
     "timer log": {
         "load data": {
-            "start": 1712615746.566884
+            "start": 1777847814.2138023,
+            "end": 1777847815.7294202
+        },
+        "train model": {
+            "start": 1777847818.4165545,
+            "end": 1777847819.9523695
+        },
+        "convert model": {
+            "start": 1777847819.9523706,
+            "end": 1777847824.8115118
         }
+    },
+    "p4 config": {
+        "model": "DT",
+        "number of features": 8,
+        "number of classes": 2,
+        "table name": "Ternary_Table.json",
+        "code table size": 46,
+        "default lable": 0,
+        "width of feature": [
+            17,
+            9,
+            12,
+            8,
+            17,
+            12,
+            9,
+            3
+        ],
+        "width of code": [
+            2.0,
+            3.0,
+            3.0,
+            2.0,
+            1.0,
+            3.0,
+            1.0,
+            1.0
+        ],
+        "used columns": [
+            19,
+            10,
+            17,
+            8,
+            17,
+            17,
+            9,
+            3
+        ],
+        "width of probability": 7,
+        "width of result": 8
+    },
+    "test config": {
+        "type of test": "classification",
+        "port": "eth0"
+    },
+    "target config": {
+        "architecture": "v1model",
+        "use case": "performance",
+        "device": "bmv2",
+        "type": "software"
     }
 }
