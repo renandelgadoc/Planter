@@ -1,7 +1,7 @@
 {
     "directory config": {
-        "data": "/Users/changgang/Documents/GitHub/Data",
-        "work": "/Users/changgang/Documents/GitHub/Planter_for_public"
+        "data": "/home/p4/Planter/Data",
+        "work": "/home/p4/Planter"
     },
     "model config": {
         "model": "DT",
@@ -13,29 +13,29 @@
     },
     "data config": {
         "dataset": "TCC",
-        "number of features": 8,
+        "number of features": 11,
         "testing mode": "y"
     },
     "timer log": {
         "load data": {
-            "start": 1777847814.2138023,
-            "end": 1777847815.7294202
+            "start": 1777948857.5650153,
+            "end": 1777948859.423253
         },
         "train model": {
-            "start": 1777847818.4165545,
-            "end": 1777847819.9523695
+            "start": 1777948866.5115685,
+            "end": 1777948867.4598405
         },
         "convert model": {
-            "start": 1777847819.9523706,
-            "end": 1777847824.8115118
+            "start": 1777948867.459842,
+            "end": 1777948873.0491147
         }
     },
     "p4 config": {
         "model": "DT",
-        "number of features": 8,
+        "number of features": 11,
         "number of classes": 2,
         "table name": "Ternary_Table.json",
-        "code table size": 46,
+        "code table size": 90,
         "default lable": 0,
         "width of feature": [
             17,
@@ -45,16 +45,22 @@
             17,
             12,
             9,
-            3
+            3,
+            9,
+            14,
+            9
         ],
         "width of code": [
             2.0,
-            3.0,
+            2.0,
             3.0,
             2.0,
             1.0,
             3.0,
             1.0,
+            1.0,
+            1.0,
+            3.0,
             1.0
         ],
         "used columns": [
@@ -65,7 +71,10 @@
             17,
             17,
             9,
-            3
+            3,
+            9,
+            17,
+            9
         ],
         "width of probability": 7,
         "width of result": 8

@@ -4,7 +4,8 @@ import pandas as pd
 def load_data(num_features, data_dir):
     data_dir = data_dir + "/TCC/"
     feat_path = os.path.join(data_dir, "selected_features.txt")
-    x_train_path = os.path.join(data_dir, "X_train.csv")
+    x_train_path_aa = os.path.join(data_dir, "X_train_aa.csv")
+    x_train_path_ab = os.path.join(data_dir, "X_train_ab.csv")
     y_train_path = os.path.join(data_dir, "y_train_bin.csv")
     x_test_path  = os.path.join(data_dir, "X_test.csv")
     y_test_path  = os.path.join(data_dir, "y_test_bin.csv")
@@ -20,7 +21,9 @@ def load_data(num_features, data_dir):
     print(used_features)
 
     # ---- carregar X como DataFrame ----
-    X_train = pd.read_csv(x_train_path)
+    X_train_aa = pd.read_csv(x_train_path_aa)
+    X_train_ab = pd.read_csv(x_train_path_ab)
+    X_train = pd.concat([X_train_aa, X_train_ab], ignore_index=True)
     X_test  = pd.read_csv(x_test_path)
 
     # Select only those columns

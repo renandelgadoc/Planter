@@ -120,7 +120,6 @@ src/temp/
 .github/
 make_run_model.sh
 **/*.pcap
-Data/
 **/tree.png
 **/load_table.py
 **/test_switch*.py

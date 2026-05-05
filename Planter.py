@@ -180,14 +180,14 @@ def Planter(iteration = 0):
 
     # ====================== set dataset in config ======================
     question = 'Which dataset do you want to use?'
-    default = 'Iris'
+    default = 'TCC'
     Planter_config = take_CLI_input(Planter_config, 'data config', 'dataset', question, default,
                                     args.manually_config, check_dir_existance=True, check_available_options=True,
                                     option_address='/src/load_data', option_suffix='_dataset.py')
 
     # =================== set data feature numbers in config ===================
     question = 'Where is the number of features?'
-    default = 3
+    default = 11
     Planter_config = take_CLI_input(Planter_config, 'data config', 'number of features', question, default,
                                  args.manually_config, numeric=True)
 

@@ -1,0 +1,17 @@
+dsport
+sbytes
+sttl
+smeansz
+ct_dst_src_ltm
+sport
+dbytes
+dmeansz
+dttl
+trans_depth
+Ltime
+proto
+Spkts
+dtcpb
+stcpb
+res_bdy_len
+dwin

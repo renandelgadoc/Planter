@@ -46,6 +46,12 @@
  * +----------------+----------------+----------------+---------------+
  * |                              feature7                            |
  * +----------------+----------------+----------------+---------------+
+ * |                              feature8                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature9                            |
+ * +----------------+----------------+----------------+---------------+
+ * |                              feature10                            |
+ * +----------------+----------------+----------------+---------------+
  * |                              Result                              |
  * +----------------+----------------+----------------+---------------+
  *
@@ -93,6 +99,9 @@ header Planter_h{
     bit<32> feature5;
     bit<32> feature6;
     bit<32> feature7;
+    bit<32> feature8;
+    bit<32> feature9;
+    bit<32> feature10;
     bit<32> result;
 }
 
@@ -103,13 +112,16 @@ struct header_t {
 
 struct metadata_t {
     bit<2> code_f0;
-    bit<3> code_f1;
+    bit<2> code_f1;
     bit<3> code_f2;
     bit<2> code_f3;
     bit<1> code_f4;
     bit<3> code_f5;
     bit<1> code_f6;
     bit<1> code_f7;
+    bit<1> code_f8;
+    bit<3> code_f9;
+    bit<1> code_f10;
     bit<7> sum_prob;
     bit<32>  DstAddr;
     bit<32> feature0;
@@ -120,6 +132,9 @@ struct metadata_t {
     bit<32> feature5;
     bit<32> feature6;
     bit<32> feature7;
+    bit<32> feature8;
+    bit<32> feature9;
+    bit<32> feature10;
     bit<32> result;
     bit<8> flag ;
 }
@@ -165,6 +180,9 @@ parser SwitchParser(
         meta.feature5 = hdr.Planter.feature5;
         meta.feature6 = hdr.Planter.feature6;
         meta.feature7 = hdr.Planter.feature7;
+        meta.feature8 = hdr.Planter.feature8;
+        meta.feature9 = hdr.Planter.feature9;
+        meta.feature10 = hdr.Planter.feature10;
         meta.flag = 1 ;
         transition accept;
     }
@@ -219,7 +237,7 @@ control SwitchIngress(
         meta_code = tree;
     }
 
-    action extract_feature1(out bit<3> meta_code, bit<3> tree){
+    action extract_feature1(out bit<2> meta_code, bit<2> tree){
         meta_code = tree;
     }
 
@@ -244,6 +262,18 @@ control SwitchIngress(
     }
 
     action extract_feature7(out bit<1> meta_code, bit<1> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature8(out bit<1> meta_code, bit<1> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature9(out bit<3> meta_code, bit<3> tree){
+        meta_code = tree;
+    }
+
+    action extract_feature10(out bit<1> meta_code, bit<1> tree){
         meta_code = tree;
     }
 
@@ -339,25 +369,61 @@ control SwitchIngress(
         default_action = NoAction;
     }
 
+    @pragma stage 0
+    table lookup_feature8 {
+        key = { hdr.Planter.feature8:ternary; }
+        actions = {
+            extract_feature8(meta.code_f8);
+            NoAction;
+            }
+        size = 9;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature9 {
+        key = { hdr.Planter.feature9:ternary; }
+        actions = {
+            extract_feature9(meta.code_f9);
+            NoAction;
+            }
+        size = 17;
+        default_action = NoAction;
+    }
+
+    @pragma stage 0
+    table lookup_feature10 {
+        key = { hdr.Planter.feature10:ternary; }
+        actions = {
+            extract_feature10(meta.code_f10);
+            NoAction;
+            }
+        size = 9;
+        default_action = NoAction;
+    }
+
     action write_default_class() {
         hdr.Planter.result = 0;
     }
 
     table decision {
         key = { meta.code_f0[1:0]:exact;
-                meta.code_f1[2:0]:exact;
+                meta.code_f1[1:0]:exact;
                 meta.code_f2[2:0]:exact;
                 meta.code_f3[1:0]:exact;
                 meta.code_f4[0:0]:exact;
                 meta.code_f5[2:0]:exact;
                 meta.code_f6[0:0]:exact;
                 meta.code_f7[0:0]:exact;
+                meta.code_f8[0:0]:exact;
+                meta.code_f9[2:0]:exact;
+                meta.code_f10[0:0]:exact;
                 }
         actions={
             read_lable;
             write_default_class;
         }
-        size = 46;
+        size = 90;
         default_action = write_default_class;
     }
 
@@ -370,6 +436,9 @@ control SwitchIngress(
         lookup_feature5.apply();
         lookup_feature6.apply();
         lookup_feature7.apply();
+        lookup_feature8.apply();
+        lookup_feature9.apply();
+        lookup_feature10.apply();
         decision.apply();
         send(ig_intr_md.ingress_port);
     }
